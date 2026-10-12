@@ -1,11 +1,11 @@
-FROM node:26.7.0-slim AS build
+FROM node:26.7.0-alpine3.24 AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM node:26.7.0-slim AS runtime
+FROM node:26.7.0-alpine3.24 AS runtime
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --omit=dev && npm cache clean --force
